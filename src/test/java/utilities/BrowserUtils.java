@@ -9,8 +9,11 @@ public class BrowserUtils {
      * @param driver this is the driver object
      */
     public static void refreshPage(WebDriver driver){
+
         driver.navigate().refresh();
     }
+
+
 
 
 }

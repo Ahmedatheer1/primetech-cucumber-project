@@ -1,16 +1,26 @@
+@crater @usermanagement @ignore
 Feature: User Access Management
-  As a user i want to ligin to my crater app.
+  As a user I want to login to my crater application
 
-  Scenario: User should be able to login with valid credentials
-    Given : user is navigate to crater login page
-    When : user enters valid user name and password
-    And user click on login button
-    Then user should be logged in successfully
+  Rule: valid login
+  The application should allow valid users to log in.
 
+    Background:
+      Given user is navigated to Crater login page
 
-  Scenario: User should be not able to login with invalid credentials
-    Given : user is navigate to crater login page
-    When : user enters invalid email
+    @smoke @regression
+    Scenario: User should be able to login with valid credentials
+      When user enters valid username and valid password
+      And user clicks on login button
+      Then user should be logged in successfully
 
-    And user click on login button
-    Then user should be logged in successfully
+# Cucumber reuses the steps that are already implemented.
+# if there are same two steps,
+# cucumber only generates one step definition and reuses that step definition between that two steps
+
+    @regression
+    Scenario: User should not be able to login with invalid email
+      When user enters invalid username and valid password
+      And user clicks on login button
+      Then user should see an error message "These credentials do not match our records." displayed
+      And user should not be logged in
